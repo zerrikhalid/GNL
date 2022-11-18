@@ -6,7 +6,7 @@
 /*   By: kzerri <kzerri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:02:52 by kzerri            #+#    #+#             */
-/*   Updated: 2022/11/16 17:03:02 by kzerri           ###   ########.fr       */
+/*   Updated: 2022/11/17 21:59:19 by kzerri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
-		return (free(buffer), buffer = NULL, NULL);
+		return (free(buffer), buffer = NULL);
 	buffer = read_file(fd, buffer);
 	if (!buffer)
 		return (NULL);
@@ -106,17 +106,3 @@ char	*get_next_line(int fd)
 	buffer = next_line(buffer);
 	return (line);
 }
-
-// int main()
-// {
-// 	char *line;
-// 	int fd = open("file.txt", O_RDONLY);
-// 	while (1)
-// 	{
-// 	 	line = get_next_line(fd);
-// 		if (!line)
-// 			break;
-// 		printf("%s",line);
-// 		free(line);
-// 	}
-// }

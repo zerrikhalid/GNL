@@ -6,7 +6,7 @@
 /*   By: kzerri <kzerri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:02:52 by kzerri            #+#    #+#             */
-/*   Updated: 2022/11/16 17:04:35 by kzerri           ###   ########.fr       */
+/*   Updated: 2022/11/17 22:44:24 by kzerri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,10 @@ char	*get_next_line(int fd)
 	static char	*buffer[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
-		return (free(buffer[fd]), buffer[fd] = NULL, NULL);
+	if (fd < 0)
+		return (NULL);
+	if (BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+		return (free(buffer[fd]), buffer[fd] = NULL);
 	buffer[fd] = read_file(fd, buffer[fd]);
 	if (!buffer[fd])
 		return (NULL);
@@ -112,17 +114,3 @@ char	*get_next_line(int fd)
 	buffer[fd] = next_line(buffer[fd]);
 	return (line);
 }
-
-// int main()
-// {
-// 	char *line;
-// 	int fd = open("file.txt", O_RDONLY);
-// 	while (1)
-// 	{
-// 	 	line = get_next_line(fd);
-// 		if (!line)
-// 			break;
-// 		printf("%s",line);
-// 		free(line);
-// 	}
-// }
